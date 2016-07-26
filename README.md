@@ -60,6 +60,13 @@ in Apigee Edge. If you are already familiar with Apigee these steps
 will likely take you about 15 minutes. If this is your first time
 using Okta, give yourself at least an hour to get everything working.
 
+**Warning**: This example API Proxy will validate *any token issued by
+Okta*. After getting this working, you *must* update the
+`JWT-Parse-Verify-RS256-okta` policy to only validate tokens issued
+by your Okta org (hard code the `iss` claim) and make sure that you
+are appropriately checking the app that issued the token from Okta
+(the `aud` claim).
+
 ## Log in to Apigee
 
 1.  After logging in to your Apigee account, you will see a
@@ -255,3 +262,15 @@ using Okta, give yourself at least an hour to get everything working.
           "refresh_token_expires_in" : "0",
           "refresh_count" : "0"
         }
+
+# Next Steps
+
+Now that you have a working API Proxy in Apigee that verifies
+`id_tokens` from Okta, your next steps will be to **lock down** the API
+Proxy to **only validate specific OIDC tokens**. In particular, you *must*
+configure your API Proxy to only accept tokens issued by your
+domain, and make sure that your are properly validating the app that
+issued the tokens from Okta.
+
+Do this by opening the `JWT-Parse-Verify-RS256-okta` policy and
+modifying the configuration for the `iss` and `aud` claims.
