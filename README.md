@@ -109,6 +109,18 @@
 4.  Copy down the "Consumer Key" and "Consumer Secret" values,
     you will need them soon.
 
+### Create an API Proxy bundle
+
+1.  Clone this repository to your machine:
+    
+        git clone git@github.com:jpf/okta-apigee-oidc.git
+2.  Change to the `okta-apigee-oidc` directory:
+    
+        cd okta-apigee-oidc
+3.  Create the `okta-oidc-jwt-bearer-apiproxy.zip` file:
+    
+        zip -r okta-oidc-jwt-bearer-apiproxy.zip apiproxy/
+
 ### Upload the example API Proxy bundle to Apigee
 
 1.  Find the "APIs" menu, and select "API Proxy" from the menu.
@@ -118,7 +130,7 @@
 4.  After you select "Proxy Bundle", click the "Next" button.
 5.  You will be prompted to "Specify the proxy details"
 6.  Click the "Choose File" button and select the
-    `okta-oidc-jwt-bearer.zip` file.
+    `okta-oidc-jwt-bearer.zip` file you just created.
 7.  Leave the "Proxy Name" as "okta-oidc-jwt-bearer"
 8.  Click the "Next" button.
 9.  Verify your settings, then click the "Build" button.
