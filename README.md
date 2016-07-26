@@ -1,27 +1,66 @@
-# What
+# Introduction
+
+This is a working proof-of-concept for integrating Okta and Apigee
+via OpenID Connect.
+
+Included is a working Apigee API Proxy that will automatically
+validate exchange any OpenID Connect `id_token` from Okta for an
+Apigee `access_token`. This API Proxy partially implements the
+"jwt-bearer" OAuth 2.0 grant type described in [RFC 7523](https://tools.ietf.org/html/rfc7523).
+
+The API Proxy is also configured to use Okta's OpenID Connect
+Discovery to fetch the signing keys for an Okta org.
 
 # Why
 
-# How
+This API Proxy is can be used for situations where you want to use
+Okta to authenticate users (an OAuth "[Authorization Server](https://tools.ietf.org/html/rfc6749#section-1.1)") and
+issue tokens, using Apigee to protect resources (an OAuth "Resource
+Server") via tokens issued by Okta.
 
-## Pre-requisites
+# Creating an Okta application for OpenID Connect
 
-### Create an Okta org
+Follow the steps below if you haven't yet created an Okta
+application with OpenID Connect support.
 
-### Create an Apigee Edge account
+-   Log in to your Okta org as a user with administrator access.
+-   Click on the "Admin" button.
+-   Click on the "Add Applications" link in the right-hand "Shortcuts" sidebar.
+-   Click on the "Create New App" button located on the left-hand side
+    of the Add Application page.
+-   A dialog box will open:
+    -   For the purposes of this demonstration, leave "Platform" set to
+        the "Web" option.
+    -   Set the "Sign on method" to the "OpenID Connect" option.
+    -   Click the "Create" button.
+-   Select a name for your application. Use "get\_id\_token.sh" if you
+    can't think of a good name.
+-   Click "Next"
+-   For the purposes of this demonstration, enter
+    "<https://example.net/your_application>" as the Redirect URI.
+-   Click "Finish"
+-   You should now see the "General" tab of the OpenID Connect
+    application that you just created.
+-   Scroll down and copy the "Client ID" for the application that you created.
+-   Click the "People" tab.
+-   Click the "Assign to People" button.
+-   Search for a user to assign to the application.
+-   Click the "Assign" button for the user you want to assign to the application.
+-   Click the "Save and Go Back" button.
+-   Click the "Done" button.
 
-## Setting up Okta
+Once you have created an Okta application and assigned a user to
+that application, run the command in the section below to fetch an
+`id_token` for that user.
 
-### Create OIDC app
+# Setting up Apigee
 
--   Create app
--   Assign to user
+Below are instructions for setting up the proof-of-concept API Proxy
+in Apigee Edge. If you are already familiar with Apigee these steps
+will likely take you about 15 minutes. If this is your first time
+using Okta, give yourself at least an hour to get everything working.
 
-### Testing that it works
-
-## Setting up Apigee
-
-### Log in to Apigee
+## Log in to Apigee
 
 1.  After logging in to your Apigee account, you will see a
     dashboard listing "API Management", "API Baas", "API Consoles",
@@ -37,36 +76,36 @@
 3.  You will see a dashboard for the API Management area with a menu
     along the top of the screen.
 
-### Create a cache
+## Create a cache
 
--   Create a cache in "prod"
+### Create a cache in "prod"
 
-    1.  From the "APIs" menu, select the "Environment Configuration" option.
-    2.  You should be in the "Caches" section
-    3.  Click on the "Edit" button on the right of the "Caches" section
-    4.  Click the "+ Cache" button that will appear where the "Edit"
-        button was.
-    5.  Enter `jwk_cache` into "Name" box.
-    6.  Enter `Cache for JWKs responses` in the "Description" box.
-    7.  Leave the defaults for "Expiration Type" and "Expiration".
-    8.  Click the "Save" button.
+1.  From the "APIs" menu, select the "Environment Configuration" option.
+2.  You should be in the "Caches" section
+3.  Click on the "Edit" button on the right of the "Caches" section
+4.  Click the "+ Cache" button that will appear where the "Edit"
+    button was.
+5.  Enter `jwk_cache` into "Name" box.
+6.  Enter `Cache for JWKs responses` in the "Description" box.
+7.  Leave the defaults for "Expiration Type" and "Expiration".
+8.  Click the "Save" button.
 
--   Create a cache in "test"
+### Create a cache in "test"
 
-    1.  From the "APIs" menu, select the "Environment Configuration" option.
-    2.  You should be in the "Caches" section
-    3.  You should see a menu icon next to the "prod" text, to the
-        right of the "Environment Configuration" text.
-    4.  Click on the "prod" menu described above, then select "test"
-    5.  Click on the "Edit" button on the right of the "Caches" section
-    6.  Click the "+ Cache" button that will appear where the "Edit"
-        button was.
-    7.  Enter `jwk_cache` into "Name" box.
-    8.  Enter `Cache for JWKs responses` in the "Description" box.
-    9.  Leave the defaults for "Expiration Type" and "Expiration".
-    10. Click the "Save" button.
+1.  From the "APIs" menu, select the "Environment Configuration" option.
+2.  You should be in the "Caches" section
+3.  You should see a menu icon next to the "prod" text, to the
+    right of the "Environment Configuration" text.
+4.  Click on the "prod" menu described above, then select "test"
+5.  Click on the "Edit" button on the right of the "Caches" section
+6.  Click the "+ Cache" button that will appear where the "Edit"
+    button was.
+7.  Enter `jwk_cache` into "Name" box.
+8.  Enter `Cache for JWKs responses` in the "Description" box.
+9.  Leave the defaults for "Expiration Type" and "Expiration".
+10. Click the "Save" button.
 
-### Create an "Okta OIDC" Product
+## Create an "Okta OIDC" Product
 
 1.  From the "Publish" menu, select "Products"
 2.  Click the "+ Product" button found on the right hand side of
@@ -81,7 +120,7 @@
     -   Leave all other settings to their defaults.
 4.  Click the "Save" button.
 
-### Create a developer account
+## Create a developer account
 
 1.  From the "Publish" menu, select "Developer"
 2.  Click the "+ Developer" button.
@@ -90,7 +129,7 @@
     username.
 4.  Click the "Save" button.
 
-### Create an "Okta App"
+## Create an "Okta App"
 
 1.  From the "Publish" menu, select "Developer Apps".
 2.  Click the "+ Developer App" button.
@@ -99,7 +138,7 @@
 5.  In the Products section, select the "Okta OIDC" product.
 6.  Click the "Save" button.
 
-### Get the OAuth `client_id` and `client_secret`
+## Get the OAuth `client_id` and `client_secret`
 
 1.  Click on the "Okta App" text in the "Developer Apps" section.
 2.  In the Products section, you should see empty "Consumer Key" and
@@ -109,7 +148,7 @@
 4.  Copy down the "Consumer Key" and "Consumer Secret" values,
     you will need them soon.
 
-### Create an API Proxy bundle
+## Create an API Proxy bundle
 
 1.  Clone this repository to your machine:
     
@@ -121,7 +160,7 @@
     
         zip -r okta-oidc-jwt-bearer-apiproxy.zip apiproxy/
 
-### Upload the example API Proxy bundle to Apigee
+## Upload the example API Proxy bundle to Apigee
 
 1.  Find the "APIs" menu, and select "API Proxy" from the menu.
 2.  On the right hand side of the screen, click the "+ API Proxy" button.
@@ -137,7 +176,7 @@
 10. You should see a green dialog saying "✓ Uploaded Proxy"
 11. Click on the link in the text that reads: "View okta-oidc-jwt-bearer proxy in the editor"
 
-### Modify the uploaded API Proxy bundle
+## Modify the uploaded API Proxy bundle
 
 1.  From the "APIs" menu, select "API Proxies"
 2.  Click on the blue text for the "okta-oidc-jwt-bearer" API proxy
@@ -154,7 +193,7 @@
 9.  Click the "Save" button on the upper left hand side of the
     screen.
 
-### Deploy the API Proxy to the "test" environment
+## Deploy the API Proxy to the "test" environment
 
 1.  From the "APIs" menu, select "API Proxies"
 2.  Click on the blue text for the "okta-oidc-jwt-bearer" API proxy
@@ -163,7 +202,7 @@
 5.  You will be prompted to "Deploy API Proxy."
 6.  Click the "Deploy" button.
 
-### Try it out
+## Try it out
 
 1.  From the "APIs" menu, select "API Proxies"
 2.  Click on the blue text for the "okta-oidc-jwt-bearer" API proxy
@@ -189,7 +228,7 @@
     
     The first thing that we'll want to do is fetch a valid `id_token`
     for our domain. You can do this using a tool like the [Okta
-    Sign-In Widget](http://developer.okta.com/docs/guides/okta_sign-in_widget) or the `get_id_token.sh` shell script per below:
+    Sign-In Widget](http://developer.okta.com/docs/guides/okta_sign-in_widget) or the [get\_id\_token.sh](https://github.com/jpf/okta-get-id-token) shell script per below:
     
         get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.com"
     
