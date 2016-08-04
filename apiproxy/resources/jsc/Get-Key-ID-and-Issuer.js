@@ -9,7 +9,7 @@ if (unvalidated_id_token === null) {
 var unvalidated_kid = unvalidated_id_token.header.kid;
 var unvalidated_iss = unvalidated_id_token.payload.iss;
 
-var validated_kid = unvalidated_kid.replace(/\W/g, "");
+var validated_kid = unvalidated_kid.replace(/[^a-zA-Z0-9-_]/g, "");
 
 var validated_iss = false;
 var domain = unvalidated_iss.split('/')[2];
