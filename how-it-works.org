@@ -15,7 +15,7 @@
 #+OPTIONS: ^:{}
 * How it works
 ** okta-jwt.xml
-   #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/okta-jwt.xml
+   #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/okta-jwt.xml
      <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
      <APIProxy revision="15" name="okta-jwt">
          <ConfigurationVersion majorVersion="4" minorVersion="0"/>
@@ -61,7 +61,7 @@
    #+END_SRC
 ** Policies
 *** AssignMessage-JWT-Parse-Response.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/AssignMessage-JWT-Parse-Response.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/AssignMessage-JWT-Parse-Response.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <AssignMessage name="AssignMessage-JWT-Parse-Response">
           <!-- This Policy was originally found in: https://github.com/apigee/iloveapis2015-jwt-jwe-jws -->
@@ -102,7 +102,7 @@
 *** Cache-JWK.xml
     1 hour is 3600 seconds.
 
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Cache-JWK.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Cache-JWK.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <PopulateCache async="false" continueOnError="false" enabled="true" name="Cache-JWK">
           <DisplayName>Cache JWK</DisplayName>
@@ -119,7 +119,7 @@
       </PopulateCache>
     #+END_SRC
 *** Configure-OAuth.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Configure-OAuth.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Configure-OAuth.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <AssignMessage async="false" continueOnError="false" enabled="true" name="Configure-OAuth">
           <DisplayName>Configure OAuth</DisplayName>
@@ -146,7 +146,7 @@
       </AssignMessage>
     #+END_SRC
 *** Error-on-invalid-token.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Error-on-invalid-token.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Error-on-invalid-token.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <RaiseFault async="false" continueOnError="false" enabled="true" name="Error-on-invalid-token">
           <DisplayName>Error on invalid token</DisplayName>
@@ -160,7 +160,7 @@
       </RaiseFault>
     #+END_SRC
 *** Extract-JWKS-URI-without-protocol.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Extract-JWKS-URI-without-protocol.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Extract-JWKS-URI-without-protocol.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ExtractVariables async="false" continueOnError="false" enabled="true" name="Extract-JWKS-URI-without-protocol">
           <DisplayName>Extract JWKS URI without protocol</DisplayName>
@@ -170,7 +170,7 @@
       </ExtractVariables>
     #+END_SRC
 *** Extract-JWKS-URI.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Extract-JWKS-URI.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Extract-JWKS-URI.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ExtractVariables async="false" continueOnError="false" enabled="true" name="Extract-JWKS-URI">
           <DisplayName>Extract JWKS URI</DisplayName>
@@ -184,7 +184,7 @@
       </ExtractVariables>
     #+END_SRC
 *** Fetch-JWKS-URI.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Fetch-JWKS-URI.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Fetch-JWKS-URI.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ServiceCallout async="false" continueOnError="false" enabled="true" name="Fetch-JWKS-URI">
           <DisplayName>Fetch JWKS URI</DisplayName>
@@ -195,7 +195,7 @@
       </ServiceCallout>
     #+END_SRC
 *** Fetch-Modulus-and-Exponent-for-Key-ID.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Fetch-Modulus-and-Exponent-for-Key-ID.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Fetch-Modulus-and-Exponent-for-Key-ID.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="Fetch-Modulus-and-Exponent-for-Key-ID">
           <DisplayName>Fetch Modulus and Exponent for Key ID</DisplayName>
@@ -203,7 +203,7 @@
       </Javascript>
     #+END_SRC
 *** Fetch-OpenID-Configuration.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Fetch-OpenID-Configuration.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Fetch-OpenID-Configuration.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ServiceCallout async="false" continueOnError="false" enabled="true" name="Fetch-OpenID-Configuration">
           <DisplayName>Fetch OpenID Configuration</DisplayName>
@@ -214,7 +214,7 @@
       </ServiceCallout>
     #+END_SRC
 *** Generate-Access-Token.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Generate-Access-Token.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Generate-Access-Token.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <OAuthV2 async="false" continueOnError="false" enabled="true" name="Generate-Access-Token">
           <DisplayName>Generate Access Token</DisplayName>
@@ -229,7 +229,7 @@
       </OAuthV2>
     #+END_SRC
 *** Get-Key-ID-and-Issuer.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Get-Key-ID-and-Issuer.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Get-Key-ID-and-Issuer.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <Javascript async="false" continueOnError="false" enabled="true" timeLimit="200" name="Get-Key-ID-and-Issuer">
           <DisplayName>Get Key ID and Issuer</DisplayName>
@@ -238,7 +238,7 @@
       </Javascript>
     #+END_SRC
 *** JWT-Parse-Verify-RS256-okta.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/JWT-Parse-Verify-RS256-okta.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/JWT-Parse-Verify-RS256-okta.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <JavaCallout name="JWT-Parse-Verify-RS256-okta">
           <Properties>
@@ -259,7 +259,7 @@
       </JavaCallout>
     #+END_SRC
 *** Look-for-cached-JWK.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Look-for-cached-JWK.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Look-for-cached-JWK.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <LookupCache async="false" continueOnError="false" enabled="true" name="Look-for-cached-JWK">
           <DisplayName>Look for cached JWK</DisplayName>
@@ -272,7 +272,7 @@
       </LookupCache>
     #+END_SRC
 *** Normalize-Okta-JWKS-variable.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Normalize-Okta-JWKS-variable.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Normalize-Okta-JWKS-variable.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <AssignMessage async="false" continueOnError="false" enabled="true" name="Normalize-Okta-JWKS-variable">
           <DisplayName>Normalize Okta JWKS variable</DisplayName>
@@ -283,7 +283,7 @@
       </AssignMessage>
     #+END_SRC
 *** Store-JWKS-response-content-in-variable.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/Store-JWKS-response-content-in-variable.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/Store-JWKS-response-content-in-variable.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ExtractVariables async="false" continueOnError="false" enabled="true" name="Store-JWKS-response-content-in-variable">
           <DisplayName>Store JWKS response content in variable</DisplayName>
@@ -293,7 +293,7 @@
       </ExtractVariables>
     #+END_SRC
 *** VerifyOAuthAccessToken.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/policies/VerifyOAuthAccessToken.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/policies/VerifyOAuthAccessToken.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <OAuthV2 async="false" continueOnError="false" enabled="true" name="VerifyOAuthAccessToken">
           <DisplayName>VerifyOAuthAccessToken</DisplayName>
@@ -304,7 +304,7 @@
     #+END_SRC
 ** Proxies
 *** default.xml
-    #+BEGIN_SRC xml :noweb yes :exports none :padline no :tangle apiproxy/proxies/default.xml
+    #+BEGIN_SRC xml :noweb yes :padline no :tangle apiproxy/proxies/default.xml
       <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
       <ProxyEndpoint name="default">
           <RouteRule name="Secured REST Time Service">
@@ -454,7 +454,7 @@
     Java are stored in this repository as .JAR files.
 *** jsc
 **** Fetch-Modulus-and-Exponent-for-Key-ID.js
-    #+BEGIN_SRC javascript :noweb yes :exports none :padline no :tangle apiproxy/resources/jsc/Fetch-Modulus-and-Exponent-for-Key-ID.js
+    #+BEGIN_SRC javascript :noweb yes :padline no :tangle apiproxy/resources/jsc/Fetch-Modulus-and-Exponent-for-Key-ID.js
       var desired_kid = context.getVariable('id_token.kid');
       var jwks = JSON.parse(context.getVariable('okta_jwks'));
 
@@ -470,7 +470,10 @@
       }
     #+END_SRC
 **** Get-Key-ID-and-Issuer.js
-    #+BEGIN_SRC javascript :noweb yes :exports none :padline no :tangle apiproxy/resources/jsc/Get-Key-ID-and-Issuer.js
+
+     Note the regular expression used to validate Key IDs
+
+    #+BEGIN_SRC javascript :noweb yes :padline no :tangle apiproxy/resources/jsc/Get-Key-ID-and-Issuer.js
       var raw_id_token = context.getVariable('request.formparam.assertion');
       context.setVariable('raw_id_token', raw_id_token);
       var unvalidated_id_token = jwtDecode(raw_id_token);
@@ -482,7 +485,7 @@
       var unvalidated_kid = unvalidated_id_token.header.kid;
       var unvalidated_iss = unvalidated_id_token.payload.iss;
 
-      var validated_kid = unvalidated_kid.replace(/\W/g, "");
+      var validated_kid = unvalidated_kid.replace(/[^a-zA-Z0-9-_]/g, "");
 
       var validated_iss = false;
       var domain = unvalidated_iss.split('/')[2];
@@ -499,7 +502,7 @@
       context.setVariable('id_token.iss_domain', domain);
     #+END_SRC
 **** jwtDecode.js
-    #+BEGIN_SRC javascript :noweb yes :exports none :padline no :tangle apiproxy/resources/jsc/jwtDecode.js
+    #+BEGIN_SRC javascript :noweb yes :padline no :tangle apiproxy/resources/jsc/jwtDecode.js
       // jwtDecode.js
       // ------------------------------------------------------------------
       //
