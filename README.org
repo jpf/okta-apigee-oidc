@@ -50,6 +50,9 @@
   - Click "Finish"
   - You should now see the "General" tab of the OpenID Connect
     application that you just created.
+  - Click the "Edit" button in the "General Settings" section
+  - Check the box for "Implicit"
+  - Click the "Save" button
   - Scroll down and copy the "Client ID" for the application that you created.
   - Click the "People" tab.
   - Click the "Assign to People" button.
@@ -59,8 +62,27 @@
   - Click the "Done" button.
   
   Once you have created an Okta application and assigned a user to
-  that application, run the command in the section below to fetch an
+  that application, run the command below to fetch an
   =id_token= for that user.
+
+  Replace the value for the *-b* flag with the URL to your Okta org.
+
+  #+BEGIN_QUOTE
+  Make sure that the URL to your Okta org /does not/ contain =-admin=
+  #+END_QUOTE
+
+  Replace the value for the *-c* flag with the Client ID for the app you
+  created.
+
+  Replace the value for the *-u* and *-p* arguments with the username and
+  password for the user that you assigned to the app.
+
+  #+BEGIN_SRC sh :noweb yes
+    <<id_token>>
+  #+END_SRC
+
+  Running the command above should give you and =id_token=, if that
+  doesn't work, add a *-v* flag to the command to get more debugging information.
 
 * Setting up Apigee
   Below are instructions for setting up the proof-of-concept API Proxy
@@ -228,7 +250,7 @@
       Sign-In Widget]] or the [[https://github.com/jpf/okta-get-id-token][get_id_token.sh]] shell script per below:
       #+NAME: id_token
       #+BEGIN_SRC sh :results code
-	get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.com"
+	get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.net/your_application"
       #+END_SRC
 
       #+RESULTS: id_token

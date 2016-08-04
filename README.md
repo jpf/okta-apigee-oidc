@@ -41,6 +41,9 @@ application with OpenID Connect support.
 -   Click "Finish"
 -   You should now see the "General" tab of the OpenID Connect
     application that you just created.
+-   Click the "Edit" button in the "General Settings" section
+-   Check the box for "Implicit"
+-   Click the "Save" button
 -   Scroll down and copy the "Client ID" for the application that you created.
 -   Click the "People" tab.
 -   Click the "Assign to People" button.
@@ -50,8 +53,23 @@ application with OpenID Connect support.
 -   Click the "Done" button.
 
 Once you have created an Okta application and assigned a user to
-that application, run the command in the section below to fetch an
+that application, run the command below to fetch an
 `id_token` for that user.
+
+Replace the value for the **-b** flag with the URL to your Okta org.
+
+> Make sure that the URL to your Okta org *does not* contain `-admin`
+
+Replace the value for the **-c** flag with the Client ID for the app you
+created.
+
+Replace the value for the **-u** and **-p** arguments with the username and
+password for the user that you assigned to the app.
+
+    get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.net/your_application"
+
+Running the command above should give you and `id_token`, if that
+doesn't work, add a **-v** flag to the command to get more debugging information.
 
 # Setting up Apigee
 
@@ -237,7 +255,7 @@ are appropriately checking the app that issued the token from Okta
     for our domain. You can do this using a tool like the [Okta
     Sign-In Widget](http://developer.okta.com/docs/guides/okta_sign-in_widget) or the [get\_id\_token.sh](https://github.com/jpf/okta-get-id-token) shell script per below:
     
-        get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.com"
+        get_id_token.sh -b "https://example.oktapreview.com" -c "aBCdEf0GhiJkLMno1pq2" -u "example.user" -p "Abcdefgh0" -o "https://example.net/your_application"
     
     Once you have a valid `id_token`, use it in the `curl` command
     again to exchange the `id_token` for an Apigee access token:
